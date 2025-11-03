@@ -1,7 +1,7 @@
-import WebSocket from "ws";
+import { WebSocketServer } from 'ws';
 
 export function startWebSocketServer(onMessage: (data: any) => void) {
-  const wss = new WebSocket.Server({ port: 4040 });
+  const wss = new WebSocketServer({ port: 4040 });
 
   console.log("✅ [Inspector] Listening on ws://localhost:4040");
 
