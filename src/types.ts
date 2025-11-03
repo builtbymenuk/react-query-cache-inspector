@@ -1,6 +1,7 @@
 export interface QuerySummary {
   key: string[];
-  status: 'success' | 'error' | 'loading' | 'idle';
+  status: 'success' | 'error' | 'loading' | 'idle' | '';
+  data?: any;
   dataUpdatedAt?: number;
 }
 

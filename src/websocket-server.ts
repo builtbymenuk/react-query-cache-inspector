@@ -1,4 +1,4 @@
-import { WebSocketServer } from 'ws';
+import { WebSocketServer } from "ws";
 
 export function startWebSocketServer(onMessage: (data: any) => void) {
   const wss = new WebSocketServer({ port: 4040 });

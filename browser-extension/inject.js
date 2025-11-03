@@ -1,38 +1,42 @@
 (function () {
   function findQueryClient() {
     for (const key of Object.keys(window)) {
-      const val = window[key];
-      if (val && typeof val.getQueryCache === "function") return val;
+      try {
+        const val = window[key];
+        if (val && typeof val.getQueryCache === "function") return val;
+      } catch (_) {}
     }
     return null;
   }
 
   const queryClient = findQueryClient();
-  if (!queryClient) return;
+  if (!queryClient) {
+    console.warn("[RQ Inspector] QueryClient not found");
+    return;
+  }
 
   function snapshot() {
-    try {
-      const queries = queryClient
-        .getQueryCache()
-        .getAll()
-        .map((q) => ({
-          key: q.queryKey,
-          status: q.state.status,
-          dataUpdatedAt: q.state.dataUpdatedAt,
-        }));
+    const queries = queryClient
+      .getQueryCache()
+      .getAll()
+      .map((q) => ({
+        key: q.queryKey,
+        status: q.state.status,
+        data: q.state.data,
+        dataUpdatedAt: q.state.dataUpdatedAt,
+      }));
 
-      window.postMessage(
-        {
-          __RQ_INSPECTOR__: true,
-          type: "CACHE_SNAPSHOT",
-          origin: location.origin,
-          queries,
-        },
-        "*"
-      );
-    } catch (e) {}
+    window.postMessage(
+      {
+        __RQ_INSPECTOR__: true,
+        type: "CACHE_SNAPSHOT",
+        origin: location.origin,
+        queries,
+      },
+      "*"
+    );
   }
 
   snapshot();
-  setInterval(snapshot, 1500);
+  setInterval(snapshot, 2000);
 })();
