@@ -1,5 +1,5 @@
 <p align="center">
- <img width="128" height="128" alt="icon128" src="https://github.com/user-attachments/assets/26a494a4-0d19-40de-8bf2-82c1cdf25144" />
+ <img width="1184" height="421" alt="react query cache inspector" src="https://github.com/user-attachments/assets/52969963-1926-48ae-acef-f7a7e074a265" />
 </p>
 <h1 align="center">
   React Query Cache Inspector for VS Code
