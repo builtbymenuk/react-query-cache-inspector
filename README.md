@@ -88,17 +88,43 @@ Or install directly from the VS Code Marketplace (coming soon).
 
 **Note:** Currently supports Chrome/Chromium-based browsers. Firefox support coming soon.
 
-## Usage
+## ⚙️ Usage
 
-1. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
+1. **Expose your React Query `QueryClient` (one-line setup)**
 
-2. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+In your root file (usually `main.tsx` or `index.tsx`), expose the `QueryClient` globally **in development mode only**.  
+This allows the VS Code Inspector to detect and read your app's cache.
 
-3. **Click on "Cache Inspector"** to open the cache view
+```
+ts
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-4. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+const queryClient = new QueryClient();
 
-5. **Explore your cache**:
+// ✅ Expose only in dev mode
+if (process.env.NODE_ENV === 'development') {
+  (window as any).__REACT_QUERY_CLIENT__ = queryClient;
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+);
+```
+
+2. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
+
+3. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+
+4. **Click on "Cache Inspector"** to open the cache view
+
+5. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+
+6. **Explore your cache**:
    - Click on query keys to expand/collapse data
    - Hover over items to see full JSON in tooltips
    - Watch queries update in real-time as your app fetches data
