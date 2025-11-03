@@ -2,7 +2,7 @@
   "name": "react-query-cache-inspector",
   "displayName": "react-query-cache-inspector",
   "description": "VS code extension to visualize React Query cache",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "menuk-fernandoo",
   "license": "MIT",
   "icon": "media/icon128.png",
