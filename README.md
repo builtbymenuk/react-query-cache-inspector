@@ -247,8 +247,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 🐛 Report bugs: [GitHub Issues](https://github.com/yourusername/react-query-cache-inspector/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/react-query-cache-inspector/discussions)
+- 🐛 Report bugs: [GitHub Issues](https://github.com/builtbymenuk/react-query-cache-inspector/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/builtbymenuk/react-query-cache-inspector/discussions)
 - 📧 Email: menukfernando7@gmail.com
 
 ---
