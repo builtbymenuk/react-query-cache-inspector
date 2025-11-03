@@ -131,31 +131,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 ## How It Works
 
-```
-┌─────────────────┐
-│  React App      │
-│  (Browser)      │
-└────────┬────────┘
-         │ Inject Script
-         ↓
-┌─────────────────┐
-│ Chrome Extension│
-│ (Extracts Cache)│
-└────────┬────────┘
-         │ WebSocket (port 4040)
-         ↓
-┌─────────────────┐
-│ VS Code         │
-│ Extension       │
-└────────┬────────┘
-         │ Tree View
-         ↓
-┌─────────────────┐
-│ Cache Inspector │
-│ Sidebar         │
-└─────────────────┘
-```
-
 The extension works in three parts:
 
 1. **Browser Script**: Locates the React Query `QueryClient` instance and extracts cache snapshots
@@ -173,8 +148,6 @@ The extension works in three parts:
 
 The extension currently uses hardcoded settings. Future versions will support:
 
-- Custom WebSocket port
-- Refresh interval configuration
 - Filter queries by status
 - Search functionality
 
@@ -188,12 +161,6 @@ npm install
 
 # Watch mode for development
 npm run watch
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
 
 # Type check
 npm run check-types
@@ -265,7 +232,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 - 🐛 Report bugs: [GitHub Issues](https://github.com/yourusername/react-query-cache-inspector/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/react-query-cache-inspector/discussions)
 - 📧 Email: menukfernando7@gmail.com
 
 ---
