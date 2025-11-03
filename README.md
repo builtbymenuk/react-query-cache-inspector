@@ -77,7 +77,7 @@ vsce package
 code --install-extension react-query-cache-inspector-0.0.1.vsix
 ```
 
-Or install directly from the VS Code Marketplace (coming soon).
+Or install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=menuk-fernandoo.react-query-cache-inspector).
 
 ### 2. Install the Browser Extension
 
@@ -92,13 +92,22 @@ Or install directly from the VS Code Marketplace (coming soon).
 
 1. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
 
-2. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+2. Add this line inside your main entry file, such as App.tsx, main.tsx, or wherever you create your QueryClient
 
-3. **Click on "Cache Inspector"** to open the cache view
+```
+if (import.meta.env.DEV) {
+  // 👇 This makes the QueryClient visible to the inspector
+  window.__RQ_CLIENT__ = queryClient;
+}
+```
 
-4. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+3. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
 
-5. **Explore your cache**:
+4. **Click on "Cache Inspector"** to open the cache view
+
+5. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+
+6. **Explore your cache**:
    - Click on query keys to expand/collapse data
    - Hover over items to see full JSON in tooltips
    - Watch queries update in real-time as your app fetches data
