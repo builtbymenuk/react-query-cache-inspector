@@ -5,6 +5,11 @@
   "version": "0.0.1",
   "publisher": "menuk-fernando",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/builtbymenuk/react-query-cache-inspector"
+  },
+  "homepage": "https://github.com/builtbymenuk/react-query-cache-inspector#readme",
   "engines": {
     "vscode": "^1.105.0"
   },
