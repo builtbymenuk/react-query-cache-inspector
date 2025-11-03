@@ -1,71 +1,247 @@
-# react-query-cache-inspector README
-
-This is the README for your extension "react-query-cache-inspector". After writing up a brief description, we recommend including the following sections.
+<p align="center">
+ <img width="128" height="128" alt="icon128" src="https://github.com/user-attachments/assets/26a494a4-0d19-40de-8bf2-82c1cdf25144" />
+</p>
+<h1 align="center">
+  React Query Cache Inspector for VS Code
+</h1>
+<p align="center">
+  Monitor and visualize your React Query cache directly inside VS Code — no browser DevTools needed.
+</p>
+<p align="center">
+  <a href="https://github.com/yourusername/react-query-cache-inspector/releases">
+    <img src="https://img.shields.io/github/v/release/yourusername/react-query-cache-inspector?label=version&color=blue" alt="Version">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/yourusername/react-query-cache-inspector/build.yml?label=build&logo=github" alt="Build Status">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/yourusername/react-query-cache-inspector?color=green" alt="License">
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/yourusername/react-query-cache-inspector/issues">
+    <img src="https://img.shields.io/github/issues/yourusername/react-query-cache-inspector?color=orange" alt="Issues">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/pulls">
+    <img src="https://img.shields.io/github/issues-pr/yourusername/react-query-cache-inspector?color=blueviolet" alt="Pull Requests">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/yourusername/react-query-cache-inspector?color=brightgreen" alt="Contributors">
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/yourusername/react-query-cache-inspector/stargazers">
+    <img src="https://img.shields.io/github/stars/yourusername/react-query-cache-inspector?style=social" alt="Stars">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/network/members">
+    <img src="https://img.shields.io/github/forks/yourusername/react-query-cache-inspector?style=social" alt="Forks">
+  </a>
+  <a href="https://github.com/yourusername/react-query-cache-inspector/commits/main">
+    <img src="https://img.shields.io/github/last-commit/yourusername/react-query-cache-inspector?color=yellow" alt="Last Commit">
+  </a>
+</p>
+React Query Cache Inspector is a VS Code extension that brings real-time cache monitoring from your browser into your editor.
+It's designed to streamline your development workflow — giving you instant visibility into your React Query state without switching contexts.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- 🔍 **Real-time Cache Monitoring** - See your React Query cache update live as your application runs
+- 🌲 **Tree View Visualization** - Explore cache data in a hierarchical, expandable tree structure
+- 🎯 **Status Indicators** - Quickly identify query states with visual icons:
+  - ✅ Success
+  - 🔄 Loading
+  - ❌ Error
+  - ⚪ Idle
+- 📊 **Nested Data Inspection** - Drill down into complex objects and arrays
+- 🔌 **Easy Setup** - Simple browser extension + VS Code extension combo
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+### 1. Install the VS Code Extension
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/react-query-cache-inspector.git
+cd react-query-cache-inspector
+
+# Install dependencies
+npm install
+
+# Compile the extension
+npm run compile
+
+# Package the extension
+vsce package
+
+# Install the .vsix file in VS Code
+code --install-extension react-query-cache-inspector-0.0.1.vsix
+```
+
+Or install directly from the VS Code Marketplace (coming soon).
+
+### 2. Install the Browser Extension
+
+1. Open Chrome and navigate to `chrome://extensions/`
+2. Enable "Developer mode" (toggle in the top right)
+3. Click "Load unpacked"
+4. Select the `browser-extension` folder from this project
+
+**Note:** Currently supports Chrome/Chromium-based browsers. Firefox support coming soon.
+
+## Usage
+
+1. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
+
+2. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+
+3. **Click on "Cache Inspector"** to open the cache view
+
+4. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+
+5. **Explore your cache**:
+   - Click on query keys to expand/collapse data
+   - Hover over items to see full JSON in tooltips
+   - Watch queries update in real-time as your app fetches data
+
+## How It Works
+
+```
+┌─────────────────┐
+│  React App      │
+│  (Browser)      │
+└────────┬────────┘
+         │ Inject Script
+         ↓
+┌─────────────────┐
+│ Chrome Extension│
+│ (Extracts Cache)│
+└────────┬────────┘
+         │ WebSocket (port 4040)
+         ↓
+┌─────────────────┐
+│ VS Code         │
+│ Extension       │
+└────────┬────────┘
+         │ Tree View
+         ↓
+┌─────────────────┐
+│ Cache Inspector │
+│ Sidebar         │
+└─────────────────┘
+```
+
+The extension works in three parts:
+
+1. **Browser Script**: Locates the React Query `QueryClient` instance and extracts cache snapshots
+2. **WebSocket Bridge**: Streams data from browser to VS Code over `ws://localhost:4040`
+3. **VS Code UI**: Displays cache in an interactive tree view
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- VS Code version 1.105.0 or higher
+- Chrome/Chromium-based browser
+- Node.js 18+ (for development)
+- A React application using `@tanstack/react-query` (v4 or v5)
 
-## Extension Settings
+## Configuration
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+The extension currently uses hardcoded settings. Future versions will support:
 
-For example:
+- Custom WebSocket port
+- Refresh interval configuration
+- Filter queries by status
+- Search functionality
 
-This extension contributes the following settings:
+## Development
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Setup
 
-## Known Issues
+```bash
+# Install dependencies
+npm install
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+# Watch mode for development
+npm run watch
 
-## Release Notes
+# Run tests
+npm test
 
-Users appreciate release notes as you update your extension.
+# Lint code
+npm run lint
 
-### 1.0.0
+# Type check
+npm run check-types
+```
 
-Initial release of ...
+### Debug the Extension
 
-### 1.0.1
+1. Press `F5` in VS Code to open a new Extension Development Host window
+2. Open a React Query project
+3. Load the browser extension in Chrome
+4. View cache data in the React Query sidebar
 
-Fixed issue #.
+### Project Structure
 
-### 1.1.0
+```
+.
+├── browser-extension/      # Chrome extension files
+│   ├── manifest.json       # Extension manifest
+│   ├── background.js       # WebSocket client
+│   ├── contentScript.js    # Injection handler
+│   └── inject.js          # Cache extraction script
+├── src/                   # VS Code extension source
+│   ├── extension.ts       # Main entry point
+│   ├── websocket-server.ts # WebSocket server
+│   ├── CacheTreeDataProvider.ts # Tree view logic
+│   └── types.ts          # TypeScript definitions
+└── out/                  # Compiled output
+```
 
-Added features X, Y, and Z.
+## Troubleshooting
+
+### Extension not showing cache data?
+
+1. Check the browser extension is enabled in `chrome://extensions/`
+2. Ensure your React app is running and using React Query
+3. Verify the WebSocket connection: Open browser DevTools → Console → Look for `[RQ Inspector] Connected to VS Code`
+4. Check VS Code's Output panel (View → Output → React Query Inspector)
+
+### WebSocket connection failed?
+
+- Make sure port 4040 is not in use by another application
+- Check your firewall settings allow local connections on port 4040
+
+### Cache not updating?
+
+- Refresh the browser page to re-establish the connection
+- Verify your React Query setup exports the `QueryClient` instance to `window`
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Inspired by [React Query DevTools](https://tanstack.com/query/latest/docs/react/devtools)
+- Built with [VS Code Extension API](https://code.visualstudio.com/api)
+- Uses [ws](https://github.com/websockets/ws) for WebSocket communication
+
+## Support
+
+- 🐛 Report bugs: [GitHub Issues](https://github.com/yourusername/react-query-cache-inspector/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/react-query-cache-inspector/discussions)
+- 📧 Email: menukfernando7@gmail.com
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Made with ❤️ for the React Query community**
