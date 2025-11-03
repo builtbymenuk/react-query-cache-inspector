@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "React Query Cache Extractor",
+  "version": "1.0.0",
+  "description": "Extracts React Query cache from webpages and streams to VS Code.",
+  "permissions": ["scripting", "tabs", "activeTab"],
+  "host_permissions": ["http://localhost/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://localhost/*", "https://*/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
