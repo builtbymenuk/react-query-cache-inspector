@@ -1,0 +1,49 @@
+# Node dependencies
+node_modules/
+
+# Compiled output
+out/
+dist/
+*.js.map
+
+# Build cache / temp files
+.esbuild/
+.esbuild-cache/
+.vscode-test/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# VS Code settings (user-specific)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Test coverage
+coverage/
+*.lcov
+
+# Env & local secrets
+.env
+.env.local
+
+# Package manager lock files (optional if you use only one)
+# Uncomment if you prefer to exclude others:
+# yarn.lock
+# pnpm-lock.yaml
+
+# Build artifacts (vsce package, npm tarballs)
+*.vsix
+*.tgz
+
+# Misc
+tmp/
+temp/
