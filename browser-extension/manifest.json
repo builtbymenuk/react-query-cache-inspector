@@ -4,20 +4,26 @@
   "version": "1.0.0",
   "description": "Extracts React Query cache from webpages and streams to VS Code.",
   "permissions": ["scripting", "tabs", "activeTab"],
-  "host_permissions": ["http://localhost/*", "https://*/*"],
+  "host_permissions": [
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["http://localhost/*", "https://*/*"],
+      "matches": [
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
       "js": ["contentScript.js"]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": ["inject.js"],
-      "matches": ["<all_urls>"]
+      "matches": ["http://localhost/*", "http://127.0.0.1/*"]
     }
   ],
   "icons": {
