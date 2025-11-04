@@ -1,5 +1,5 @@
 <p align="center">
- <img width="128" height="128" alt="icon128" src="https://github.com/user-attachments/assets/26a494a4-0d19-40de-8bf2-82c1cdf25144" />
+ <img width="1184" height="421" alt="react query cache inspector" src="https://github.com/user-attachments/assets/52969963-1926-48ae-acef-f7a7e074a265" />
 </p>
 <h1 align="center">
   React Query Cache Inspector for VS Code
@@ -88,47 +88,48 @@ Or install directly from the VS Code Marketplace (coming soon).
 
 **Note:** Currently supports Chrome/Chromium-based browsers. Firefox support coming soon.
 
-## Usage
+## ⚙️ Usage
 
-1. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
+1. **Expose your React Query `QueryClient` (one-line setup)**
 
-2. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+In your root file (usually `main.tsx` or `index.tsx`), expose the `QueryClient` globally **in development mode only**.  
+This allows the VS Code Inspector to detect and read your app's cache.
 
-3. **Click on "Cache Inspector"** to open the cache view
+```
+ts
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-4. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+const queryClient = new QueryClient();
 
-5. **Explore your cache**:
+// ✅ Expose only in dev mode
+if (process.env.NODE_ENV === 'development') {
+  (window as any).__REACT_QUERY_CLIENT__ = queryClient;
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+);
+```
+
+2. **Start your React Query application** in the browser (e.g., `http://localhost:3000`)
+
+3. **Open VS Code** and look for the React Query icon in the Activity Bar (left sidebar)
+
+4. **Click on "Cache Inspector"** to open the cache view
+
+5. **Refresh your browser page** - the extension will automatically connect and start streaming cache data
+
+6. **Explore your cache**:
    - Click on query keys to expand/collapse data
    - Hover over items to see full JSON in tooltips
    - Watch queries update in real-time as your app fetches data
 
 ## How It Works
-
-```
-┌─────────────────┐
-│  React App      │
-│  (Browser)      │
-└────────┬────────┘
-         │ Inject Script
-         ↓
-┌─────────────────┐
-│ Chrome Extension│
-│ (Extracts Cache)│
-└────────┬────────┘
-         │ WebSocket (port 4040)
-         ↓
-┌─────────────────┐
-│ VS Code         │
-│ Extension       │
-└────────┬────────┘
-         │ Tree View
-         ↓
-┌─────────────────┐
-│ Cache Inspector │
-│ Sidebar         │
-└─────────────────┘
-```
 
 The extension works in three parts:
 
@@ -147,8 +148,6 @@ The extension works in three parts:
 
 The extension currently uses hardcoded settings. Future versions will support:
 
-- Custom WebSocket port
-- Refresh interval configuration
 - Filter queries by status
 - Search functionality
 
@@ -162,12 +161,6 @@ npm install
 
 # Watch mode for development
 npm run watch
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
 
 # Type check
 npm run check-types
@@ -239,7 +232,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 - 🐛 Report bugs: [GitHub Issues](https://github.com/yourusername/react-query-cache-inspector/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/react-query-cache-inspector/discussions)
 - 📧 Email: menukfernando7@gmail.com
 
 ---
